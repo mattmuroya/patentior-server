@@ -1,7 +1,7 @@
 import { Patient } from '../types';
+import { createNewPatient } from '../utils/patientUtils';
 
-
-export const patients: Array<Patient> = [
+const data = [
   {
       "id": "d2773336-f723-11e9-8f0b-362b9e155667",
       "name": "John McClane",
@@ -43,3 +43,10 @@ export const patients: Array<Patient> = [
       "occupation": "Digital evangelist"
   }
 ];
+
+// refactored the Gender type as an enum so need to reformat the data as an Array of Patients
+export const patients: Patient[] = data.map(patient => {
+    const obj = createNewPatient(patient) as Patient;
+      obj.id = patient.id;
+      return obj;
+  });

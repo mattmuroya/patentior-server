@@ -1,17 +1,32 @@
-import { Patient, PatientRedacted } from '../types';
+import { Patient, PatientRedacted, NewPatient } from '../types';
 import { patients } from '../data/patients';
+// import {v1 as uuid } from 'uuid';
+import { v1 as uuid } from 'uuid';
+
+const patientList: Patient[] = patients; 
 
 const getPatients = (): Patient[] => {
-  return patients;
+  return patientList;
 };
 
 const getRedactedPatients = (): PatientRedacted[] => {
-  return patients.map(({ id, name, dateOfBirth, gender, occupation }) => {
+  return patientList.map(({ id, name, dateOfBirth, gender, occupation }) => {
     return { id, name, dateOfBirth, gender, occupation };
   });
 };
 
+const addPatient = (patient: NewPatient): Patient => { // utils.createNewPatient
+  const newId: string = uuid();
+  const newPatient: Patient = {
+    id: newId,
+    ...patient
+  };
+  patientList.push(newPatient);
+  return newPatient;
+};
+
 export default {
   getPatients,
-  getRedactedPatients
+  getRedactedPatients,
+  addPatient
 };
